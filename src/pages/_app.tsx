@@ -17,7 +17,9 @@ const MyApp: VFC = ({ Component, pageProps }: AppProps) => {
 			<Header />
 			<div className="flex">
 				<Sidebar />
-				<Component {...pageProps} />
+				<div className="w-full bg-green-50">
+					<Component {...pageProps} />
+				</div>
 			</div>
 		</>
 	);

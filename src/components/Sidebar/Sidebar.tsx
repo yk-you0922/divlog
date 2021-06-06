@@ -18,7 +18,7 @@ type LinkType = {
 };
 
 const LINKITEMS: Array<LinkType> = [
-	{ icon: faHome, linkName: 'ホーム', href: '/' },
+	{ icon: faHome, linkName: 'ホーム', href: '/Login' },
 	{ icon: faUsers, linkName: 'メンバー', href: '/Users' },
 	{ icon: faQuestionCircle, linkName: '質問', href: '/Questions' },
 	{ icon: faBook, linkName: 'メモ', href: '/Memos' },
@@ -28,7 +28,7 @@ const LINKITEMS: Array<LinkType> = [
 
 export const Sidebar: VFC = () => {
 	return (
-		<div className="bg-gray-50 border-r-8 border-teal-800 h-screen lg:w-48 md:w-30">
+		<div className="bg-gray-50 border-r-4 border-teal-700 h-screen lg:w-48 md:w-30">
 			{LINKITEMS.map((item) => (
 				<LinkList icon={item.icon} linkName={item.linkName} href={item.href} />
 			))}
