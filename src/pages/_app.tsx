@@ -15,7 +15,7 @@ const MyApp: VFC = ({ Component, pageProps }: AppProps) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header />
-			<div className="flex ">
+			<div className="flex">
 				<Sidebar />
 				<Component {...pageProps} />
 			</div>
