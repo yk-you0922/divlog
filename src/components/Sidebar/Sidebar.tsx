@@ -1,41 +1,37 @@
 import { VFC } from 'react';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faChalkboardTeacher, faHome, faQuestionCircle, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import {
+	faBook,
+	faChalkboardTeacher,
+	faHome,
+	faQuestionCircle,
+	faUser,
+	faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
+import { LinkList } from 'src/components/Sidebar/LinkList';
+
+type LinkType = {
+	icon: IconProp;
+	linkName: string;
+	href: string;
+};
+
+const LINKITEMS: Array<LinkType> = [
+	{ icon: faHome, linkName: 'ホーム', href: '/' },
+	{ icon: faUsers, linkName: 'メンバー', href: '/Users' },
+	{ icon: faQuestionCircle, linkName: '質問', href: '/Questions' },
+	{ icon: faBook, linkName: 'メモ', href: '/Memos' },
+	{ icon: faChalkboardTeacher, linkName: 'レビュー', href: '/Reviews' },
+	{ icon: faUser, linkName: 'マイページ', href: '/MyPage' },
+];
 
 export const Sidebar: VFC = () => {
 	return (
-		<div className="bg-gray-50 border-r-8 border-teal-800 h-screen lg:w-48 md:w-30 p-5">
-			<ul className="text-gray-600">
-				<li className="mt-5 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faHome} className="w-8 mr-3"/>
-					<Link href="/">ホーム</Link>
-				</li>
-				<li className="mt-10 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faUsers} className="w-8 mr-3"/>
-					<Link href="/Users">
-						メンバー
-					</Link>
-				</li>
-				<li className="mt-10 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faQuestionCircle} className="w-8 mr-3"/>
-					<Link href="/Questions">
-						質問
-					</Link>
-				</li>
-				<li className="mt-10 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faBook} className="w-8 mr-3"/>
-					<Link href="/Memos">メモ</Link>
-				</li>
-				<li className="mt-10 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faChalkboardTeacher} className="w-8 mr-3"/>
-					<Link href="/Reviews">レビュー</Link>
-				</li>
-				<li className="mt-10 flex items-center hover:opacity-50">
-					<FontAwesomeIcon icon={faUser} className="w-8 mr-3"/>
-					<Link href="/MyPage">マイページ</Link>
-				</li>
-			</ul>
+		<div className="bg-gray-50 border-r-8 border-teal-800 h-screen lg:w-48 md:w-30">
+			{LINKITEMS.map((item) => (
+				<LinkList icon={item.icon} linkName={item.linkName} href={item.href} />
+			))}
 		</div>
 	);
 };
