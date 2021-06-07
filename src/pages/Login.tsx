@@ -1,5 +1,5 @@
 import { TextField } from '@material-ui/core';
-import React, { ChangeEvent, useState, VFC } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useState, VFC } from 'react';
 
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
 import { Card } from 'src/components/Card/Card';
@@ -9,12 +9,24 @@ const Login: VFC = () => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
-	const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-		setEmail((email) => e.target.value);
-	};
+	const handleEmail = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setEmail((email) => e.target.value);
+		},
+		[email]
+	);
 
-	const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-		setPassword((password) => e.target.value);
+	const handlePassword = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setPassword((password) => e.target.value);
+		},
+		[password]
+	);
+
+	const handleLogin = (e: MouseEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		fetch('http://localhost:3100/users')
+			.then(res => res.json())
 	};
 
 	return (
@@ -47,7 +59,7 @@ const Login: VFC = () => {
 						/>
 					</div>
 					<div className="mt-16 text-center">
-						<PrimaryButton>ログイン</PrimaryButton>
+						<PrimaryButton onClick={handleLogin}>ログイン</PrimaryButton>
 					</div>
 				</form>
 			</Card>

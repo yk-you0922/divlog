@@ -5,21 +5,24 @@
 			"username": "test",
 			"email": "test@test.com",
 			"password": "password",
-			"status": 0
+			"status": 0,
+			"login": false
 		},
 		{
 			"id": 2,
 			"username": "reviewer",
 			"email": "test2@test.com",
 			"password": "pass1234",
-			"status": 1
+			"status": 1,
+			"login": false
 		},
 		{
 			"id": 3,
 			"username": "testUser",
 			"email": "user@test.com",
 			"password": "user3150",
-			"status": 0
+			"status": 0,
+			"login": false
 		}
 	],
 	"questions": [
