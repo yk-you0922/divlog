@@ -15,7 +15,9 @@ export const LinkList: VFC<Props> = (props) => {
 			<Link href={props.href}>
 				<div className="p-5 flex items-center hover:opacity-50 hover:bg-gray-200">
 					<FontAwesomeIcon icon={props.icon} className="w-8 mr-3" />
-					{props.linkName}
+					<span className="hidden md:block">
+						{props.linkName}
+					</span>
 				</div>
 			</Link>
 		</div>

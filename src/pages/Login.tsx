@@ -1,5 +1,11 @@
 import { TextField } from '@material-ui/core';
-import React, { ChangeEvent, MouseEvent, useCallback, useState, VFC } from 'react';
+import React, {
+	ChangeEvent,
+	MouseEvent,
+	useCallback,
+	useState,
+	VFC,
+} from 'react';
 
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
 import { Card } from 'src/components/Card/Card';
@@ -25,14 +31,13 @@ const Login: VFC = () => {
 
 	const handleLogin = (e: MouseEvent<HTMLInputElement>) => {
 		e.preventDefault();
-		fetch('http://localhost:3100/users')
-			.then(res => res.json())
+		fetch('http://localhost:3100/users').then((res) => res.json());
 	};
 
 	return (
-		<div className="m-10">
+		<div>
+			<Title>Login</Title>
 			<Card>
-				<Title>Login</Title>
 				<form>
 					<div className="mt-5">
 						<TextField

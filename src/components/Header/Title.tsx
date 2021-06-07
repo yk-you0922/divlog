@@ -7,7 +7,7 @@ type Props = {
 export const Title: VFC<Props> = (props) => {
   return (
     <div className="w-full">
-      <h1 className="mt-3 mb-5 text-6xl">{props.children}</h1>
+      <h1 className="text-center mt-3 mb-5 text-6xl">{props.children}</h1>
     </div>
   )
 }
