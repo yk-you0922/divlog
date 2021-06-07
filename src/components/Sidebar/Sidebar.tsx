@@ -28,9 +28,9 @@ const LINKITEMS: Array<LinkType> = [
 
 export const Sidebar: VFC = () => {
 	return (
-		<div className="bg-gray-50 border-r-4 border-teal-700 h-screen lg:w-48 md:w-30">
+		<div className="bg-gray-50 border-r-4 border-teal-700 h-screen md:w-56">
 			{LINKITEMS.map((item) => (
-				<LinkList icon={item.icon} linkName={item.linkName} href={item.href} />
+				<LinkList key={item.href} icon={item.icon} linkName={item.linkName} href={item.href} />
 			))}
 		</div>
 	);
