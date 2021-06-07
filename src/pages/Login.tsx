@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
-import { Card } from 'src/components/Card/Card';
+import { LoginCard } from 'src/components/Card/LoginCard';
 import { Title } from 'src/components/Header/Title';
 
 const Login: VFC = () => {
@@ -37,7 +37,7 @@ const Login: VFC = () => {
 	return (
 		<div>
 			<Title>Login</Title>
-			<Card>
+			<LoginCard>
 				<form>
 					<div className="mt-5">
 						<TextField
@@ -67,7 +67,7 @@ const Login: VFC = () => {
 						<PrimaryButton onClick={handleLogin}>ログイン</PrimaryButton>
 					</div>
 				</form>
-			</Card>
+			</LoginCard>
 		</div>
 	);
 };
