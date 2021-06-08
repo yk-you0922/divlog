@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIから全ユーザー情報を取得
 	const res = await fetch('http://localhost:3100/users');
 	console.log(context);
-	const users = await res.json();
+	let users: Array<User> = await res.json();
 	// データをprops経由でページに渡す
 	return { props: { users } };
 };
