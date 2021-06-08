@@ -20,7 +20,7 @@ type LinkType = {
 const LINKITEMS: Array<LinkType> = [
 	{ icon: faHome, linkName: 'ホーム', href: '/Login' },
 	{ icon: faUsers, linkName: 'メンバー', href: '/Users' },
-	{ icon: faQuestionCircle, linkName: '質問', href: '/Questions' },
+	{ icon: faQuestionCircle, linkName: '質問', href: '/Question/Questions' },
 	{ icon: faBook, linkName: 'メモ', href: '/Memos' },
 	{ icon: faChalkboardTeacher, linkName: 'レビュー', href: '/Reviews' },
 	{ icon: faUser, linkName: 'マイページ', href: '/MyPage' },
