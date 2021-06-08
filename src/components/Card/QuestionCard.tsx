@@ -15,13 +15,13 @@ export const QuestionCard: VFC<Props> = (props) => {
 				<FontAwesomeIcon icon={faQuestionCircle} className="w-10" />
 			</div>
 			<div className="mt-5 text-center">{props.question.title}</div>
-      <div className="mt-5 flex justify-around">
-        <div className="bg-green-500 w-14 h-14 rounded-full m-auto"></div>
-        <div>
-          <div className="mt-3">{props.question.username}</div>
-          <div>投稿日：{props.question.created_at}</div>
-        </div>
-      </div>
+			<div className="mt-5 flex justify-around">
+				<div className="bg-green-500 w-14 h-14 rounded-full m-auto"></div>
+				<div>
+					<div className="mt-3">{props.question.username}</div>
+					<div>投稿日：{props.question.created_at}</div>
+				</div>
+			</div>
 		</div>
 	);
 };

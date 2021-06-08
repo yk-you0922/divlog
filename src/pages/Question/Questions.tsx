@@ -22,24 +22,32 @@ type Props = {
 
 const Questions: VFC<Props> = (props) => {
 	console.log(props);
-  return (
+	return (
 		<div>
 			<Title>質問</Title>
 			<div className="md:grid md:grid-cols-2 gap-4">
-        {props.questions.map((question) => (
-          <div key={question.id} className="mt-5 lg:mt-1">
-            <QuestionCard question={question} />
-          </div>
-        ))}
-      </div>
+				{props.questions.map((question) => (
+					<div key={question.id} className="mt-5 lg:mt-1">
+						<QuestionCard question={question} />
+					</div>
+				))}
+			</div>
 			<div className="flex absolute bottom-10 right-5">
 				<div className="mr-3">
 					<Link href="/Question/NewQuestion">
-						<LinkButton>質問<br/>する</LinkButton>
+						<LinkButton>
+							質問
+							<br />
+							する
+						</LinkButton>
 					</Link>
 				</div>
 				<div>
-					<LinkButton>質問<br/>探す</LinkButton>
+					<LinkButton>
+						質問
+						<br />
+						探す
+					</LinkButton>
 				</div>
 			</div>
 		</div>
