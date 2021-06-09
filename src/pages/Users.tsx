@@ -9,13 +9,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIから全ユーザー情報を取得
 	const res = await fetch('http://localhost:3100/users');
 	console.log(context);
-	let users: Array<User> = await res.json();
+	let users: User[] = await res.json();
 	// データをprops経由でページに渡す
 	return { props: { users } };
 };
 
 type Props = {
-	users: Array<User>;
+	users: User[];
 };
 
 const Users: VFC<Props> = (props) => {
