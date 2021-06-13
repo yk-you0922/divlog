@@ -1,30 +1,59 @@
 import { VFC, useState, useCallback, ChangeEvent } from 'react';
-import { Select, TextField } from '@material-ui/core';
+import { Select, TextField, Input } from '@material-ui/core';
 import { useRouter } from 'next/router';
 
 import { Title } from 'src/components/Header/Title';
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
 import { Question } from 'src/types/Question';
-console.log('再レンダリング1');
 
 const NewQuestion: VFC = () => {
-
 	const router = useRouter();
 	const [title, setTitle] = useState<string>('');
-	const [categoryId, setCategoryId] = useState<string>('');
+	const [categoryId, setCategoryId] = useState<number>();
 	const [text, setText] = useState<string>('');
+	const [files, setFiles] = useState<File[]>([]);
+	const [previews, setPreviews] = useState<string[]>(['../noimage.png']);
 
-	const handleTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setTitle((prevTitle) => e.target.value);
-	}, [title]);
+	const handleTitle = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setTitle((prevTitle) => e.target.value);
+		},
+		[title]
+	);
 
-	const handleCategoryId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setCategoryId((prevCategoryId) => e.target.value);
-	}, [categoryId])
+	const handleCategoryId = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setCategoryId(e.target.valueAsNumber);
+		},
+		[categoryId]
+	);
 
-	const handleText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setText((prevText) => e.target.value);
-	}, [text]);
+	const handleText = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setText((prevText) => e.target.value);
+		},
+		[text]
+	);
+
+	const handleFiles = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			const { files } = e.target;
+			let addedFiles: File[] = [];
+			let addStringFiles: string[];
+			let fileURL: string = '';
+			let fileURLs: string[] = [];
+			for (let i = 0; i < files.length; i++) {
+				addedFiles = [...Array.from(addedFiles), files[i]];
+				const stringFiles: string[] = [''];
+				addStringFiles = [...stringFiles];
+				fileURL = window.URL.createObjectURL(addedFiles[i]);
+				fileURLs = [...fileURLs, fileURL];
+			}
+			setPreviews(fileURLs);
+			setFiles(addedFiles);
+		},
+		[files]
+	);
 
 	const onClickCreate = useCallback(() => {
 		// CreateAPIURL
@@ -37,7 +66,7 @@ const NewQuestion: VFC = () => {
 			description: text,
 			categoryId: categoryId,
 			userId: 1,
-			username: "test",
+			username: 'test',
 			created_at: now,
 			updated_at: now,
 			status: 0,
@@ -45,9 +74,9 @@ const NewQuestion: VFC = () => {
 		fetch(url, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data)
+			body: JSON.stringify(data),
 		}).then((response) => {
 			if (!response.ok) {
 				console.log('Create Error!');
@@ -64,7 +93,7 @@ const NewQuestion: VFC = () => {
 			<Title>質問する</Title>
 			<form className="text-center">
 				<div className="mt-3">
-					<TextField 
+					<TextField
 						className="bg-gray-50 w-10/12"
 						id="newQuestionTitle"
 						variant="outlined"
@@ -98,9 +127,20 @@ const NewQuestion: VFC = () => {
 					/>
 				</div>
 				<div className="mt-5">
-					<PrimaryButton onClick={onClickCreate}>
-						Send
-					</PrimaryButton>
+					<input type="file" multiple onChange={handleFiles} />
+				</div>
+				<div className="mt-5">
+					{previews.map((preview) => (
+						<img
+							key={preview}
+							src={preview}
+							alt="preview"
+							className="inline-block m-auto"
+						/>
+					))}
+				</div>
+				<div className="mt-5">
+					<PrimaryButton onClick={onClickCreate}>Send</PrimaryButton>
 				</div>
 			</form>
 		</div>

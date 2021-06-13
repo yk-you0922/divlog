@@ -19,7 +19,6 @@ type Props = {
 };
 
 const Questions: VFC<Props> = (props) => {
-	console.log(props);
 	return (
 		<div>
 			<Title>質問</Title>
