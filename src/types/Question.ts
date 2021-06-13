@@ -1,8 +1,8 @@
 export type Question = {
-	id: number;
+	id?: number;
 	title: string;
 	description: string;
-	category: number;
+	categoryId: string;
 	userId: number;
 	username: string;
 	created_at: string;
