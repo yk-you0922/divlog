@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "json-server": "json-server db.json --port 3100"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
