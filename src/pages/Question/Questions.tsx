@@ -9,7 +9,6 @@ import { LinkButton } from 'src/components/Button/LinkButton';
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIから全ユーザー情報を取得
 	const res = await fetch('http://localhost:3100/questions');
-	console.log(context);
 	let questions: Question[] = await res.json();
 	// データをprops経由でページに渡す
 	return { props: { questions } };
