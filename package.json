@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "json-server": "json-server data/db.json --port 3100",
+    "json-server-image": "json-server data/db.json --static ./public --port 3200"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -20,8 +22,12 @@
     "jsonwebtoken": "^8.5.1",
     "next": "^10.2.3",
     "next-transpile-modules": "^4.1.0",
+    "prismjs": "^1.23.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-split-mde": "^0.3.4",
+    "react-upload-gallery": "^0.2.0",
+    "zenn-markdown-html": "^0.1.85"
   },
   "devDependencies": {
     "@types/node": "^15.12.1",
