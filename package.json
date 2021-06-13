@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "json-server": "json-server db.json --port 3100"
+    "json-server": "json-server data/db.json --port 3100",
+    "json-server-image": "json-server data/db.json --static ./public --port 3200"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -25,6 +26,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-split-mde": "^0.3.4",
+    "react-upload-gallery": "^0.2.0",
     "zenn-markdown-html": "^0.1.85"
   },
   "devDependencies": {
