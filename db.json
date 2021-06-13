@@ -1,55 +1,126 @@
 {
-	"users": [
-		{
-			"id": 1,
-			"username": "test",
-			"email": "test@test.com",
-			"password": "password",
-			"description": "こんにちは。初めまして。プログラミング初心者です",
-			"status": 0,
-			"login": false
-		},
-		{
-			"id": 2,
-			"username": "reviewer",
-			"email": "test2@test.com",
-			"password": "pass1234",
-			"description": "こんにちは。初めまして。プログラマー歴20年のベテランです。レビュー依頼受け付けます",
-			"status": 1,
-			"login": false
-		},
-		{
-			"id": 3,
-			"username": "testUser",
-			"email": "user@test.com",
-			"password": "user3150",
-			"description": "こんにちは。初めまして。プログラミングに興味があります。",
-			"status": 0,
-			"login": false
-		}
-	],
-	"questions": [
-		{
-			"id": 1,
-			"title": "Reactについて",
-			"description": "Reactの環境構築ができません",
-      "category": 0,
-			"userId": 1,
-			"username": "test",
-			"created_at": "2020-06-01 19:23:44",
-			"updated_at": "2020-06-01 19:23:44",
-			"status": 0
-		},
-		{
-			"id": 2,
-			"title": "テストができません",
-			"description": "Reactのテストで何をすれば良いのか教えて欲しいです",
-      "category": 1,
-			"userId": 3,
-			"username": "testUser",
-			"created_at": "2020-06-03 21:56:44",
-			"updated_at": "2020-06-03 21:56:44",
-			"status": 1
-		}
-	]
+  "users": [
+    {
+      "id": 1,
+      "username": "test",
+      "email": "test@test.com",
+      "password": "password",
+      "description": "こんにちは。初めまして。プログラミング初心者です",
+      "status": 0,
+      "login": false
+    },
+    {
+      "id": 2,
+      "username": "reviewer",
+      "email": "test2@test.com",
+      "password": "pass1234",
+      "description": "こんにちは。初めまして。プログラマー歴20年のベテランです。レビュー依頼受け付けます",
+      "status": 1,
+      "login": false
+    },
+    {
+      "id": 3,
+      "username": "testUser",
+      "email": "user@test.com",
+      "password": "user3150",
+      "description": "こんにちは。初めまして。プログラミングに興味があります。",
+      "status": 0,
+      "login": false
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "title": "Reactについて",
+      "description": "Reactの環境構築ができません",
+      "category_id": 0,
+      "userId": 1,
+      "username": "test",
+      "created_at": "2020-06-01 19:23:44",
+      "updated_at": "2020-06-01 19:23:44",
+      "status": 0
+    },
+    {
+      "id": 2,
+      "title": "テストができません",
+      "description": "Reactのテストで何をすれば良いのか教えて欲しいです",
+      "category_id": 1,
+      "userId": 3,
+      "username": "testUser",
+      "created_at": "2020-06-03 21:56:44",
+      "updated_at": "2020-06-03 21:56:44",
+      "status": 1
+    },
+    {
+      "title": "質問テスト",
+      "description": "質問テストテキスト",
+      "user_id": 1,
+      "user_name": "test",
+      "create_at": "2021-06-13T09:05:58.853Z",
+      "updated_at": "2021-06-13T09:05:58.853Z",
+      "status": 0,
+      "id": 3
+    },
+    {
+      "title": "質問後の遷移",
+      "description": "質問後の遷移先のテスト",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021-06-13T09:14:01.178Z",
+      "updated_at": "2021-06-13T09:14:01.178Z",
+      "status": 0,
+      "id": 4
+    },
+    {
+      "title": "質問テスト",
+      "description": "質問後の遷移テスト2",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021-06-13T09:14:37.705Z",
+      "updated_at": "2021-06-13T09:14:37.705Z",
+      "status": 0,
+      "id": 5
+    },
+    {
+      "title": "saitesuto",
+      "description": "saitesuto",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021-06-13T09:17:08.051Z",
+      "updated_at": "2021-06-13T09:17:08.051Z",
+      "status": 0,
+      "id": 6
+    },
+    {
+      "title": "",
+      "description": "",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021-06-13T09:18:08.371Z",
+      "updated_at": "2021-06-13T09:18:08.371Z",
+      "status": 0,
+      "id": 7
+    },
+    {
+      "title": "",
+      "description": "",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021-06-13T09:18:36.692Z",
+      "updated_at": "2021-06-13T09:18:36.692Z",
+      "status": 0,
+      "id": 8
+    },
+    {
+      "title": "React環境構築について",
+      "description": "Reactの環境構築はどのようにするのがいいのでしょうか",
+      "categoryId": "4",
+      "userId": 1,
+      "username": "test",
+      "created_at": "2021/6/13 19:53:55",
+      "updated_at": "2021/6/13 19:53:55",
+      "status": 0,
+      "id": 9
+    }
+  ]
 }
