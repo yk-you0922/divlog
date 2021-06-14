@@ -1,5 +1,5 @@
-import { VFC, useState, useCallback, ChangeEvent } from 'react';
-import { Select, TextField, Input } from '@material-ui/core';
+import { VFC, useState, useCallback, ChangeEvent, MouseEvent } from 'react';
+import { Select, TextField, Modal } from '@material-ui/core';
 import { useRouter } from 'next/router';
 
 import { Title } from 'src/components/Header/Title';
@@ -13,6 +13,7 @@ const NewQuestion: VFC = () => {
 	const [text, setText] = useState<string>('');
 	const [files, setFiles] = useState<File[]>([]);
 	const [previews, setPreviews] = useState<string[]>(['../noimage.png']);
+	const [modal, setModal] = useState<boolean>(false);
 
 	const handleTitle = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
@@ -55,38 +56,56 @@ const NewQuestion: VFC = () => {
 		[files]
 	);
 
-	const onClickCreate = useCallback(() => {
-		// CreateAPIURL
-		const url: string = 'http://localhost:3100/questions';
-		// 送信後の遷移先
-		const href: string = '/Question/Questions';
-		const now: string = new Date().toLocaleString();
-		const data: Question = {
-			title: title,
-			description: text,
-			categoryId: categoryId,
-			userId: 1,
-			username: 'test',
-			created_at: now,
-			updated_at: now,
-			status: 0,
-		};
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		}).then((response) => {
-			if (!response.ok) {
-				console.log('Create Error!');
-				throw new Error('error');
-			}
-			console.log('Create OK!');
-			router.push(href);
-			return response.json();
-		});
-	}, [title, text]);
+	const openModal = useCallback(
+		(e: MouseEvent<HTMLInputElement>) => {
+			console.log(e.target);
+			setModal(true);
+		},
+		[modal]
+	);
+
+	const closeModal = useCallback(() => {
+		setModal(false);
+	}, [modal]);
+
+	const onClickCreate = useCallback(
+		(e: MouseEvent<HTMLInputElement>) => {
+			// CreateAPIURL
+			const url: string = 'http://localhost:3100/questions';
+			// 送信後の遷移先の指定
+			const href: string = '/Question/Questions';
+			// 現在日時の取得
+			const now: string = new Date().toLocaleString();
+			const data: Question = {
+				title: title,
+				description: text,
+				categoryId: categoryId,
+				files: previews,
+				userId: 1,
+				username: 'test',
+				created_at: now,
+				updated_at: now,
+				status: 0,
+			};
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			}).then((response) => {
+				if (!response.ok) {
+					console.log('Create Error!');
+					throw new Error('error');
+				}
+				console.log('Create OK!');
+				//TODO: 質問一覧への遷移(できない)
+				router.push(href);
+				return response.json();
+			});
+		},
+		[title, text, files, previews]
+	);
 
 	return (
 		<div>
@@ -131,18 +150,27 @@ const NewQuestion: VFC = () => {
 				</div>
 				<div className="mt-5">
 					{previews.map((preview) => (
-						<img
+						<div
 							key={preview}
-							src={preview}
-							alt="preview"
-							className="inline-block m-auto"
-						/>
+							className="w-80 h-96 m-auto p-10"
+							onClick={openModal}
+						>
+							<img
+								src={preview}
+								alt="preview"
+								className="block hover:opacity-50 cursor-pointer"
+							/>
+						</div>
 					))}
 				</div>
 				<div className="mt-5">
 					<PrimaryButton onClick={onClickCreate}>Send</PrimaryButton>
 				</div>
 			</form>
+
+				<Modal className="flex items-center justify-center" open={modal} onClose={closeModal}>
+					<img src="../noimage.png" alt="modal-preview" />
+				</Modal>
 		</div>
 	);
 };
