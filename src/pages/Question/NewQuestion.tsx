@@ -9,16 +9,17 @@ import { Category } from 'src/types/Category';
 import { useModal } from 'src/hooks/useModal';
 import { useCreateQuestion } from 'src/hooks/useCreateQuestion';
 
+type Props = {
+	categories: Category[];
+};
+
+// 読み込み時にカテゴリーをDBから取得する
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIからカテゴリー情報を取得
 	const res = await fetch('http://localhost:3100/categories');
 	let categories: Category[] = await res.json();
 	// データをprops経由でページに渡す
 	return { props: { categories } };
-};
-
-type Props = {
-	categories: Category[];
 };
 
 const NewQuestion: VFC<Props> = (props) => {

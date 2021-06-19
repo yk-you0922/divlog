@@ -66,7 +66,7 @@ export const useCreateQuestion = (): [
 
 	const onClickCreate = useCallback(
 		(e: MouseEvent<HTMLInputElement>) => {
-			e.preventDefault();
+      e.preventDefault();
 			// CreateAPIURL
 			const url: string = 'http://localhost:3100/questions';
 			// 送信後の遷移先の指定
@@ -75,7 +75,7 @@ export const useCreateQuestion = (): [
 			const now: string = new Date().toLocaleString();
       // TODO ベタ書きになっているユーザー情報を動的に変更
 			const data: Question = {
-				title: title,
+        title: title,
 				description: text,
 				categoryId: categoryId,
 				files: previews,
@@ -86,21 +86,21 @@ export const useCreateQuestion = (): [
 				status: 0,
 			};
 			fetch(url, {
-				method: 'POST',
+        method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(data),
 			}).then((response) => {
-				if (!response.ok) {
-					console.log('Create Error!');
+        if (!response.ok) {
+          console.log('Create Error!');
 					throw new Error('error');
 				}
 				console.log('Create OK!');
 				return response.json();
 			});
-			// 処理終了後、遷移させる
-			router.push(href);
+      // 処理終了後、遷移させる
+      router.push(href);
 		},
 		[title, text, files, previews]
 	);
