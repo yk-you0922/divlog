@@ -1,14 +1,13 @@
-import { VFC, useState, useCallback, ChangeEvent, MouseEvent } from 'react';
+import { VFC } from 'react';
 import { Select, TextField, Modal } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 
 import { Title } from 'src/components/Header/Title';
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
-import { Question } from 'src/types/Question';
 import { Category } from 'src/types/Category';
 // カスタムフック
 import { useModal } from 'src/hooks/useModal';
+import { useCreateQuestion } from 'src/hooks/useCreateQuestion';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIからカテゴリー情報を取得
@@ -23,92 +22,16 @@ type Props = {
 };
 
 const NewQuestion: VFC<Props> = (props) => {
-	const router = useRouter();
-	const [title, setTitle] = useState<string>('');
-	const [categoryId, setCategoryId] = useState<number>();
-	const [text, setText] = useState<string>('');
-	const [files, setFiles] = useState<File[]>([]);
-	const [previews, setPreviews] = useState<string[]>(['../noimage.png']);
 	// カスタムフック
 	const [modal, previewImg, { openModal, closeModal }] = useModal();
-
-	const handleTitle = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			setTitle((prevTitle) => e.target.value);
-		},
-		[title]
-	);
-
-	const handleCategoryId = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			setCategoryId(e.target.valueAsNumber);
-		},
-		[categoryId]
-	);
-
-	const handleText = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			setText((prevText) => e.target.value);
-		},
-		[text]
-	);
-
-	const handleFiles = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			const { files } = e.target;
-			let addedFiles: File[] = [];
-			let fileURL: string = '';
-			let fileURLs: string[] = [];
-			for (let i = 0; i < files.length; i++) {
-				addedFiles = [...Array.from(addedFiles), files[i]];
-				fileURL = window.URL.createObjectURL(addedFiles[i]);
-				fileURLs = [...fileURLs, fileURL];
-			}
-			setPreviews(fileURLs);
-			setFiles(addedFiles);
-		},
-		[files]
-	);
-
-	const onClickCreate = useCallback(
-		(e: MouseEvent<HTMLInputElement>) => {
-			e.preventDefault();
-			// CreateAPIURL
-			const url: string = 'http://localhost:3100/questions';
-			// 送信後の遷移先の指定
-			const href: string = '/Question/Questions';
-			// 現在日時の取得
-			const now: string = new Date().toLocaleString();
-			const data: Question = {
-				title: title,
-				description: text,
-				categoryId: categoryId,
-				files: previews,
-				userId: 1,
-				username: 'test',
-				created_at: now,
-				updated_at: now,
-				status: 0,
-			};
-			fetch(url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(data),
-			}).then((response) => {
-				if (!response.ok) {
-					console.log('Create Error!');
-					throw new Error('error');
-				}
-				console.log('Create OK!');
-				return response.json();
-			});
-			// 処理終了後、遷移させる
-			router.push(href);
-		},
-		[title, text, files, previews]
-	);
+	const [
+		title,
+		categoryId,
+		text,
+		files,
+		previews,
+		{ handleTitle, handleText, handleCategoryId, handleFiles, onClickCreate },
+	] = useCreateQuestion();
 
 	return (
 		<div>
