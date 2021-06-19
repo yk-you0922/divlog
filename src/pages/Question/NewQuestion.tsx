@@ -70,7 +70,6 @@ const NewQuestion: VFC<Props> = (props) => {
 	);
 
 	const openModal = useCallback(
-		// (e: MouseEvent<HTMLInputElement>) => {
 		(e: MouseEvent<HTMLImageElement>) => {
 			const imgUrl = e.currentTarget;
 			console.log(imgUrl);
@@ -87,6 +86,7 @@ const NewQuestion: VFC<Props> = (props) => {
 
 	const onClickCreate = useCallback(
 		(e: MouseEvent<HTMLInputElement>) => {
+			e.preventDefault();
 			// CreateAPIURL
 			const url: string = 'http://localhost:3100/questions';
 			// 送信後の遷移先の指定
@@ -116,10 +116,10 @@ const NewQuestion: VFC<Props> = (props) => {
 					throw new Error('error');
 				}
 				console.log('Create OK!');
-				//TODO: 質問一覧への遷移(できない)
-				router.push(href);
 				return response.json();
 			});
+			// 処理終了後、遷移させる
+			router.push(href);
 		},
 		[title, text, files, previews]
 	);
