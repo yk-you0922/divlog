@@ -6,7 +6,7 @@ import { Title } from 'src/components/Header/Title';
 import { Question } from 'src/types/Question';
 import { LinkButton } from 'src/components/Button/LinkButton';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async(context) => {
 	// 外部APIから全ユーザー情報を取得
 	const res = await fetch('http://localhost:3100/questions');
 	let questions: Question[] = await res.json();

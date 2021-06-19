@@ -3,6 +3,7 @@ export type Question = {
 	title: string;
 	description: string;
 	categoryId: number;
+	files: string[];
 	userId: number;
 	username: string;
 	created_at: string;
