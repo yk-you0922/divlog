@@ -13,7 +13,9 @@ const NewQuestion: VFC = () => {
 	const [text, setText] = useState<string>('');
 	const [files, setFiles] = useState<File[]>([]);
 	const [previews, setPreviews] = useState<string[]>(['../noimage.png']);
+	const [previewImg, setPreviewImg] = useState<string>('');
 	const [modal, setModal] = useState<boolean>(false);
+	console.log(previewImg);
 
 	const handleTitle = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
@@ -40,13 +42,10 @@ const NewQuestion: VFC = () => {
 		(e: ChangeEvent<HTMLInputElement>) => {
 			const { files } = e.target;
 			let addedFiles: File[] = [];
-			let addStringFiles: string[];
 			let fileURL: string = '';
 			let fileURLs: string[] = [];
 			for (let i = 0; i < files.length; i++) {
 				addedFiles = [...Array.from(addedFiles), files[i]];
-				const stringFiles: string[] = [''];
-				addStringFiles = [...stringFiles];
 				fileURL = window.URL.createObjectURL(addedFiles[i]);
 				fileURLs = [...fileURLs, fileURL];
 			}
@@ -57,8 +56,12 @@ const NewQuestion: VFC = () => {
 	);
 
 	const openModal = useCallback(
-		(e: MouseEvent<HTMLInputElement>) => {
-			console.log(e.target);
+		// (e: MouseEvent<HTMLInputElement>) => {
+		(e: MouseEvent<HTMLImageElement>) => {
+			const imgUrl = e.currentTarget;
+			console.log(imgUrl);
+			console.log(imgUrl.src);
+			setPreviewImg(imgUrl.src);
 			setModal(true);
 		},
 		[modal]
@@ -153,12 +156,12 @@ const NewQuestion: VFC = () => {
 						<div
 							key={preview}
 							className="w-80 h-96 m-auto p-10"
-							onClick={openModal}
-						>
+							>
 							<img
 								src={preview}
 								alt="preview"
 								className="block hover:opacity-50 cursor-pointer"
+								onClick={openModal}
 							/>
 						</div>
 					))}
@@ -167,9 +170,10 @@ const NewQuestion: VFC = () => {
 					<PrimaryButton onClick={onClickCreate}>Send</PrimaryButton>
 				</div>
 			</form>
-
 				<Modal className="flex items-center justify-center" open={modal} onClose={closeModal}>
-					<img src="../noimage.png" alt="modal-preview" />
+					<div className="max-w-4xl">
+						<img src={previewImg} alt="modal-preview"/>
+					</div>
 				</Modal>
 		</div>
 	);
