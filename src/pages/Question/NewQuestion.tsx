@@ -7,18 +7,20 @@ import { Title } from 'src/components/Header/Title';
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
 import { Question } from 'src/types/Question';
 import { Category } from 'src/types/Category';
+// カスタムフック
+import { useModal } from 'src/hooks/useModal';
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	// 外部APIからカテゴリー情報を取得
 	const res = await fetch('http://localhost:3100/categories');
 	let categories: Category[] = await res.json();
 	// データをprops経由でページに渡す
 	return { props: { categories } };
-}
+};
 
 type Props = {
 	categories: Category[];
-}
+};
 
 const NewQuestion: VFC<Props> = (props) => {
 	const router = useRouter();
@@ -27,9 +29,8 @@ const NewQuestion: VFC<Props> = (props) => {
 	const [text, setText] = useState<string>('');
 	const [files, setFiles] = useState<File[]>([]);
 	const [previews, setPreviews] = useState<string[]>(['../noimage.png']);
-	const [previewImg, setPreviewImg] = useState<string>('');
-	const [modal, setModal] = useState<boolean>(false);
-	console.log(previewImg);
+	// カスタムフック
+	const [modal, previewImg, { openModal, closeModal }] = useModal();
 
 	const handleTitle = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
@@ -68,21 +69,6 @@ const NewQuestion: VFC<Props> = (props) => {
 		},
 		[files]
 	);
-
-	const openModal = useCallback(
-		(e: MouseEvent<HTMLImageElement>) => {
-			const imgUrl = e.currentTarget;
-			console.log(imgUrl);
-			console.log(imgUrl.src);
-			setPreviewImg(imgUrl.src);
-			setModal(true);
-		},
-		[modal]
-	);
-
-	const closeModal = useCallback(() => {
-		setModal(false);
-	}, [modal]);
 
 	const onClickCreate = useCallback(
 		(e: MouseEvent<HTMLInputElement>) => {
@@ -145,7 +131,9 @@ const NewQuestion: VFC<Props> = (props) => {
 						id="newQuestionCategory"
 					>
 						{props.categories.map((category) => (
-							<option key={category.id} value={category.id}>{category.name}</option>
+							<option key={category.id} value={category.id}>
+								{category.name}
+							</option>
 						))}
 					</Select>
 				</div>
@@ -165,10 +153,7 @@ const NewQuestion: VFC<Props> = (props) => {
 				</div>
 				<div className="mt-5">
 					{previews.map((preview) => (
-						<div
-							key={preview}
-							className="w-80 h-96 m-auto p-10"
-							>
+						<div key={preview} className="w-80 h-96 m-auto p-10">
 							<img
 								src={preview}
 								alt="preview"
@@ -182,11 +167,15 @@ const NewQuestion: VFC<Props> = (props) => {
 					<PrimaryButton onClick={onClickCreate}>Send</PrimaryButton>
 				</div>
 			</form>
-				<Modal className="flex items-center justify-center" open={modal} onClose={closeModal}>
-					<div className="max-w-4xl">
-						<img src={previewImg} alt="modal-preview"/>
-					</div>
-				</Modal>
+			<Modal
+				className="flex items-center justify-center"
+				open={modal}
+				onClose={closeModal}
+			>
+				<div className="max-w-4xl">
+					<img src={previewImg} alt="modal-preview" />
+				</div>
+			</Modal>
 		</div>
 	);
 };
