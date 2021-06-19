@@ -1,12 +1,26 @@
 import { VFC, useState, useCallback, ChangeEvent, MouseEvent } from 'react';
 import { Select, TextField, Modal } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
 import { Title } from 'src/components/Header/Title';
 import { PrimaryButton } from 'src/components/Button/PrimaryButton';
 import { Question } from 'src/types/Question';
+import { Category } from 'src/types/Category';
 
-const NewQuestion: VFC = () => {
+export const getServerSideProps: GetServerSideProps = async(context) => {
+	// 外部APIからカテゴリー情報を取得
+	const res = await fetch('http://localhost:3100/categories');
+	let categories: Category[] = await res.json();
+	// データをprops経由でページに渡す
+	return { props: { categories } };
+}
+
+type Props = {
+	categories: Category[];
+}
+
+const NewQuestion: VFC<Props> = (props) => {
 	const router = useRouter();
 	const [title, setTitle] = useState<string>('');
 	const [categoryId, setCategoryId] = useState<number>();
@@ -130,11 +144,9 @@ const NewQuestion: VFC = () => {
 						onChange={handleCategoryId}
 						id="newQuestionCategory"
 					>
-						<option value={0}>未選択</option>
-						<option value={1}>HTML</option>
-						<option value={2}>CSS</option>
-						<option value={3}>JavaScript</option>
-						<option value={4}>React</option>
+						{props.categories.map((category) => (
+							<option key={category.id} value={category.id}>{category.name}</option>
+						))}
 					</Select>
 				</div>
 				<div className="mt-5">
